@@ -23,9 +23,9 @@ const initalState = []
 export const fetchProducts = () => {
   return async dispatch => {
     try {
-      const {data} = await axios.get(`/api/products`)
+      const {data} = await axios.get(`/api/store`)
       dispatch(getProducts(data || initalState))
-      history.push('/allExperiences')
+      history.push('/store')
     } catch (error) {
       console.log(error)
     }
@@ -35,7 +35,7 @@ export const fetchProducts = () => {
 export const deleteProduct = id => {
   return async dispatch => {
     try {
-      const {data} = await axios.delete(`/api/products/${id}`)
+      const {data} = await axios.delete(`/api/store/${id}`)
       dispatch(removeProduct(data || initalState))
     } catch (error) {
       console.log(error)
