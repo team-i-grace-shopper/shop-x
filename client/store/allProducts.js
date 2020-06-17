@@ -23,7 +23,7 @@ const initialState = []
 export const fetchProducts = () => {
   return async dispatch => {
     try {
-      const {data} = await axios.get(`/api/shop`)
+      const {data} = await axios.get(`/api/products`)
       dispatch(getProducts(data || initialState))
       history.push('/shop')
     } catch (error) {
@@ -35,7 +35,7 @@ export const fetchProducts = () => {
 export const deleteProduct = id => {
   return async dispatch => {
     try {
-      const {data} = await axios.delete(`/api/shop/${id}`)
+      const {data} = await axios.delete(`/api/products/${id}`)
       dispatch(removeProduct(data || initialState))
     } catch (error) {
       console.log(error)
