@@ -28,7 +28,13 @@ class AllProducts extends React.Component {
     this.props.fetchProducts()
   }
   render() {
-    return <h1>PRODUCTS</h1>
+    return (
+      <li>
+        {fakeExp.map(exp => {
+          return <h1>{exp.name}</h1>
+        })}
+      </li>
+    )
   }
 }
 
