@@ -17,15 +17,15 @@ export const removeProduct = requestedProduct => ({
 })
 
 //state
-const initalState = []
+const initialState = []
 
 //thunk
 export const fetchProducts = () => {
   return async dispatch => {
     try {
-      const {data} = await axios.get(`/api/products`)
-      dispatch(getProducts(data || initalState))
-      history.push('/allExperiences')
+      const {data} = await axios.get(`/api/shop`)
+      dispatch(getProducts(data || initialState))
+      history.push('/shop')
     } catch (error) {
       console.log(error)
     }
@@ -35,8 +35,8 @@ export const fetchProducts = () => {
 export const deleteProduct = id => {
   return async dispatch => {
     try {
-      const {data} = await axios.delete(`/api/products/${id}`)
-      dispatch(removeProduct(data || initalState))
+      const {data} = await axios.delete(`/api/shop/${id}`)
+      dispatch(removeProduct(data || initialState))
     } catch (error) {
       console.log(error)
     }
@@ -44,7 +44,7 @@ export const deleteProduct = id => {
 }
 
 //reducer
-export default (state = initalState, action) => {
+export default (state = initialState, action) => {
   switch (action.type) {
     case GET_PRODUCTS:
       return {...state, products: action.requestedProducts}
