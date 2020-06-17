@@ -6,10 +6,12 @@ const GET_PRODUCTS = 'GET_PRODUCTS'
 const DELETE_PRODUCT = 'DELETE_PRODUCT'
 
 //action creators
-export const getProducts = requestedProducts => ({
-  type: GET_PRODUCTS,
-  requestedProducts
-})
+export const getProducts = requestedProducts => {
+  return {
+    type: GET_PRODUCTS,
+    requestedProducts
+  }
+}
 
 export const removeProduct = requestedProduct => ({
   type: DELETE_PRODUCT,
@@ -23,7 +25,7 @@ const initalState = []
 export const fetchProducts = () => {
   return async dispatch => {
     try {
-      const {data} = await axios.get(`/api/store`)
+      const {data} = await axios.get(`/api/products`)
       dispatch(getProducts(data || initalState))
       history.push('/store')
     } catch (error) {
@@ -35,7 +37,7 @@ export const fetchProducts = () => {
 export const deleteProduct = id => {
   return async dispatch => {
     try {
-      const {data} = await axios.delete(`/api/store/${id}`)
+      const {data} = await axios.delete(`/api/product/${id}`)
       dispatch(removeProduct(data || initalState))
     } catch (error) {
       console.log(error)

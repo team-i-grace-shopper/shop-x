@@ -1,7 +1,7 @@
 /* global describe beforeEach afterEach it */
 
 import {expect} from 'chai'
-import {products, fetchProducts} from './allProducts'
+import {products, fetchProducts, removeProduct} from './allProducts'
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 import configureMockStore from 'redux-mock-store'
@@ -37,9 +37,26 @@ describe('thunk creators', () => {
       mockAxios.onGet('/api/shop').replyOnce(200, fakeExp)
       await store.dispatch(fetchProducts())
       const actions = store.getActions()
-      console.log('*****', actions)
       expect(actions[0].type).to.be.equal('GET_PRODUCTS')
-      expect(actions[0].products).to.be.deep.equal(fakeExp)
+      console.log('actions', actions[0])
+      expect(actions[0].requestedProducts).to.be.deep.equal(fakeExp)
+    })
+  })
+
+  describe('deleteProduct', () => {
+    it('dispatches the REMOVE PRODUCT action', async () => {
+      const fakeExp = {
+        id: 1,
+        name: 'PHILADELPHIA DISCOVERY FLIGHT LESSON',
+        description:
+          'Get into the pilot seat, learn the basics of aviation and take the controls of a single engine light aircraft during this half hour Introductory Flying Lesson. The adventure begins when you meet your Certified Flight Instructor at the Cross Keys Airport in Williamstown, New Jersey!'
+      }
+      console.log('mock', mockAxios.axiosInstance.delete)
+      mockAxios.axiosInstance.delete('/api/shop/1')
+      const actions = store.getActions()
+      await store.dispatch(removeProduct())
+      expect(actions[0].type).to.be.equal('DELETE_PRODUCT')
+      expect(actions[0].requestedProducts).to.be.deep.equal(undefined)
     })
   })
 })
