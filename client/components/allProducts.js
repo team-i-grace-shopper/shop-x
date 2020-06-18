@@ -20,7 +20,7 @@ class AllProducts extends React.Component {
         ) : (
           this.props.products[0] &&
           this.props.products.map(exp => {
-            return <h1>{exp.name}</h1>
+            return <h1 key={exp.id}>{exp.name}</h1>
           })
         )}
       </div>
