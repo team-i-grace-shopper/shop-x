@@ -20,9 +20,15 @@ class AllProducts extends React.Component {
         {!this.props.products.length ? (
           <h2>There are no products registered in the database</h2>
         ) : (
-          this.props.products[0] &&
+          this.props.products === [] ||
           this.props.products.map(exp => {
-            return <h1 key={exp.id}>{exp.name}</h1>
+            return (
+              <div key={exp.id}>
+                <Link to={`/shop/${exp.id}`}>
+                  <ProductList products={exp} />
+                </Link>
+              </div>
+            )
           })
         )}
       </div>

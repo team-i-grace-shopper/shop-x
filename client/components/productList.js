@@ -5,15 +5,13 @@ class ProductList extends React.Component {
     super(props)
   }
   render() {
+    console.log('props', this.props)
     return (
       <div className="list-ctn">
-        <span className="img-ctn">
-          <img src={this.props.image} alt="" />
-        </span>
-        <span className="product-details">
-          <p>{this.props.name}</p>
-          <p>{this.props.description}</p>
-        </span>
+        <img src={this.props.products.imageUrl} />
+        <h1>{this.props.products.name}</h1>
+        <p>{this.props.products.description}</p>
+        <p>{this.props.products.price}</p>
       </div>
     )
   }
