@@ -15,7 +15,6 @@ class AllProducts extends React.Component {
 
   render() {
     return (
-      // <li>
       <div className="allProducts">
         {!this.props.products.length ? (
           <h2>There are no products registered in the database</h2>
@@ -33,7 +32,6 @@ class AllProducts extends React.Component {
           })
         )}
       </div>
-      // </li>
     )
   }
 }
