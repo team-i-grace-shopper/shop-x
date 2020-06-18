@@ -1,6 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchProducts, deleteProduct} from '../store/allProducts'
+import ProductList from './productList'
+import {Link} from 'react-router-dom'
 
 const fakeExp = [
   {
@@ -29,11 +31,17 @@ class AllProducts extends React.Component {
   }
   render() {
     return (
-      <li>
+      <Link>
         {fakeExp.map(exp => {
-          return <h1>{exp.name}</h1>
+          return (
+            <ProductList
+              name={exp.name}
+              description={exp.description}
+              image={exp.imageUrl}
+            />
+          )
         })}
-      </li>
+      </Link>
     )
   }
 }
