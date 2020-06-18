@@ -25,7 +25,8 @@ export const fetchProducts = () => {
     try {
       const {data} = await axios.get(`/api/products`)
       dispatch(getProducts(data || initialState))
-      history.push('/shop')
+      console.log('ALL PRODUCTS:', data)
+      // history.push('/shop')
     } catch (error) {
       console.log(error)
     }
@@ -47,7 +48,7 @@ export const deleteProduct = id => {
 export default (state = initialState, action) => {
   switch (action.type) {
     case GET_PRODUCTS:
-      return {...state, products: action.requestedProducts}
+      return action.requestedProducts
     case DELETE_PRODUCT:
       return {...state}
     default:
