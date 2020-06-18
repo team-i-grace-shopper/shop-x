@@ -22,7 +22,7 @@ class Routes extends Component {
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/shop" component={AllProducts} />
-        <Route path="/" component={Login} />
+        <Route path="/" component={AllProducts} />
         {/* <Route path='/shop/:productId' component={SingleProduct} />
         <Route path='/cart' component={Cart} /> */}
         {isLoggedIn && (
