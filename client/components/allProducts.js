@@ -27,6 +27,7 @@ class AllProducts extends React.Component {
                 <Link to={`/shop/${exp.id}`}>
                   <ProductList products={exp} />
                 </Link>
+                <button type="button">Add To Cart</button>
               </div>
             )
           })
