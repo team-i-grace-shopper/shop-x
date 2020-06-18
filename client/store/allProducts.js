@@ -49,8 +49,12 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case GET_PRODUCTS:
       return action.requestedProducts
-    case DELETE_PRODUCT:
-      return {...state}
+    case DELETE_PRODUCT: {
+      const newState = state.filter(
+        product => product.id !== action.requestedProduct.id
+      )
+      return newState
+    }
     default:
       return state
   }
