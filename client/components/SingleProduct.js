@@ -16,14 +16,25 @@ class SingleProduct extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      product: this.props.singleProduct,
+      productName: this.props.singleProduct.name,
       price: this.props.singleProduct.price,
       quantity: 0
     }
+    this.addToCart = this.addToCart.bind(this)
   }
 
   componentDidMount() {
     this.props.fetchSingleProducts(this.props.id)
+  }
+
+  addToCart() {
+    if (!localStorage.getItem('cart')) {
+      localStorage.setItem('cart', JSON.stringify[this.state])
+    } else {
+      const newCart = JSON.parse(localStorage.getItem('cart'))
+      newCart.push(this.state)
+      localStorage.setItem('cart', JSON.stringify(newCart))
+    }
   }
 
   // function handleChange(event) {
@@ -55,9 +66,9 @@ class SingleProduct extends React.Component {
           <button
             type="button"
             className="addToCartButton"
-            // onClick={
-            //   props.addToCart()
-            // }
+            onClick={() => {
+              this.addToCart()
+            }}
           >
             ADD TO CART
           </button>
