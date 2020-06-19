@@ -5,7 +5,6 @@ class ProductList extends React.Component {
     super(props)
   }
   render() {
-    console.log('props', this.props)
     return (
       <div className="list-ctn">
         <img src={this.props.products.imageUrl} />
