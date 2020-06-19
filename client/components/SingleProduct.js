@@ -2,22 +2,10 @@ import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
 import {fetchSingleProductThunk} from '../store/singleProduct'
 
-// const selectedProduct = {
-//   name: 'BOSTON NORTHERN LIGHTS JAZZ CRUISE',
-//   description:
-//     'Take a trip back in time and climb aboard a 1920s styled New England Yacht for a 90 minute Boston Harbor Cruise. Enjoy the relaxing sounds of jazz as you take in beautiful views of the City Skyline at night.',
-//   price: 54,
-//   imageUrl:
-//     'https://www.xperiencedays.com/images/Boston-Jazz-Cruises-XD-124-041_700x410.jpg',
-//   category: 'activity',
-// }
-
 class SingleProduct extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      productName: this.props.singleProduct.name,
-      price: this.props.singleProduct.price,
       quantity: 0
     }
     this.addToCart = this.addToCart.bind(this)
@@ -28,11 +16,17 @@ class SingleProduct extends React.Component {
   }
 
   addToCart() {
+    const productToAdd = {
+      name: this.props.singleProduct.name,
+      price: this.props.singleProduct.price,
+      quantity: this.state.quantity
+    }
+
     if (!localStorage.getItem('cart')) {
-      localStorage.setItem('cart', JSON.stringify[this.state])
+      localStorage.setItem('cart', JSON.stringify([productToAdd]))
     } else {
       const newCart = JSON.parse(localStorage.getItem('cart'))
-      newCart.push(this.state)
+      newCart.push(productToAdd)
       localStorage.setItem('cart', JSON.stringify(newCart))
     }
   }
