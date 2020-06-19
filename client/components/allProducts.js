@@ -1,6 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchProducts, deleteProduct} from '../store/allProducts'
+import ProductList from './productList'
+import {Link} from 'react-router-dom'
 
 class AllProducts extends React.Component {
   constructor(props) {
@@ -13,18 +15,23 @@ class AllProducts extends React.Component {
 
   render() {
     return (
-      // <li>
       <div className="allProducts">
         {!this.props.products.length ? (
           <h2>There are no products registered in the database</h2>
         ) : (
-          this.props.products[0] &&
+          this.props.products === [] ||
           this.props.products.map(exp => {
-            return <h1 key={exp.id}>{exp.name}</h1>
+            return (
+              <div key={exp.id}>
+                <Link to={`/shop/${exp.id}`}>
+                  <ProductList products={exp} />
+                </Link>
+                <button type="button">Add To Cart</button>
+              </div>
+            )
           })
         )}
       </div>
-      // </li>
     )
   }
 }
