@@ -7,12 +7,38 @@ import {Link} from 'react-router-dom'
 class AllProducts extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {
+      qty: 0
+    }
+    this.addToCart = this.addToCart.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
 
   componentDidMount() {
     this.props.fetchProducts()
   }
 
+  addToCart(event) {
+    const productToAdd = {
+      name: this.props.products[event.target.id - 1].name,
+      price: this.props.products[event.target.id - 1].price,
+      quantity: Number(this.state.qty)
+    }
+
+    if (!localStorage.getItem('cart')) {
+      localStorage.setItem('cart', JSON.stringify([productToAdd]))
+    } else {
+      const newCart = JSON.parse(localStorage.getItem('cart'))
+      newCart.push(productToAdd)
+      localStorage.setItem('cart', JSON.stringify(newCart))
+    }
+  }
+
+  handleChange(event) {
+    this.setState({
+      qty: event.target.value
+    })
+  }
   render() {
     return (
       <div className="allProducts">
@@ -26,7 +52,11 @@ class AllProducts extends React.Component {
                 <Link to={`/shop/${exp.id}`}>
                   <ProductList products={exp} />
                 </Link>
-                <button type="button">Add To Cart</button>
+
+                <input type="number" onChange={this.handleChange} />
+                <button onClick={this.addToCart} id={exp.id} type="button">
+                  Add To Cart
+                </button>
               </div>
             )
           })
