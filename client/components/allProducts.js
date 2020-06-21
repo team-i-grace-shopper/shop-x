@@ -53,7 +53,11 @@ class AllProducts extends React.Component {
                   <ProductList products={exp} />
                 </Link>
 
-                <input type="number" onChange={this.handleChange} />
+                <input
+                  type="number"
+                  defaultValue="1"
+                  onChange={this.handleChange}
+                />
                 <button onClick={this.addToCart} id={exp.id} type="button">
                   Add To Cart
                 </button>
