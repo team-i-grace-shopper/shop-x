@@ -8,7 +8,7 @@ class AllProducts extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      qty: 0
+      qty: 1
     }
     this.addToCart = this.addToCart.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -32,6 +32,9 @@ class AllProducts extends React.Component {
       newCart.push(productToAdd)
       localStorage.setItem('cart', JSON.stringify(newCart))
     }
+    this.setState({
+      qty: 1
+    })
   }
 
   handleChange(event) {
