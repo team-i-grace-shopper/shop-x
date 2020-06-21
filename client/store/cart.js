@@ -1,4 +1,3 @@
-import axios from 'axios'
 import history from '../history'
 
 /**
@@ -6,7 +5,7 @@ import history from '../history'
  */
 const ADD_PRODUCT = 'ADD_PRODUCT'
 const REMOVE_PRODUCT = 'REMOVE_PRODUCT'
-
+const EMPTY_CART = 'EMPTY_CART'
 /**
  * INITIAL STATE
  */
@@ -20,7 +19,7 @@ const defaultCart = {
  */
 const addProduct = product => ({type: ADD_PRODUCT, product})
 const removeProduct = productId => ({type: REMOVE_PRODUCT, productId})
-
+const emptyCart = () => ({type: EMPTY_CART})
 /**
  * THUNK CREATORS
  */
@@ -55,6 +54,8 @@ export default function(state = defaultCart, action) {
         currentTotal: updatedCartTotal
       }
     }
+    case EMPTY_CART:
+      return {}
     default:
       return state
   }
