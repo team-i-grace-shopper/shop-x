@@ -11,10 +11,20 @@ const Product = db.define('product', {
   },
   price: {
     type: Sequelize.INTEGER,
-    allowNull: false
+    allowNull: false,
+    validate: {min: 1},
+    set(dollars) {
+      this.setDataValue('price', dollars * 100)
+    },
+    get() {
+      return this.getDataValue('price') / 100
+    }
   },
   imageUrl: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    defaultValue:
+      'https://image.freepik.com/free-vector/useful-gold-label-black-background_1035-4814.jpg',
+    validate: {isUrl: true}
   },
   category: {
     type: Sequelize.STRING
