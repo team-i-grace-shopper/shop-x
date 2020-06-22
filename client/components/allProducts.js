@@ -19,6 +19,8 @@ class AllProducts extends React.Component {
   }
 
   addToCart(event) {
+    console.log('id', event.target.id)
+    console.log('all products', this.props.products)
     const productToAdd = {
       name: this.props.products[event.target.id - 1].name,
       price: this.props.products[event.target.id - 1].price,
