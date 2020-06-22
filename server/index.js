@@ -31,6 +31,7 @@ if (process.env.NODE_ENV !== 'production') require('../secrets')
 // passport registration
 passport.serializeUser((user, done) => done(null, user.id))
 
+// places req.user on all requests
 passport.deserializeUser(async (id, done) => {
   try {
     const user = await db.models.user.findByPk(id)
