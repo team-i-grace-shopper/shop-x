@@ -19,8 +19,9 @@ const CheckoutConfirmation = props => {
         <div>
           Address:
           <p>{props.orderDetails.address}</p>
-          <p>{props.orderDetails.city}</p>
-          <p>{props.orderDetails.state}</p>
+          <span>
+            {props.orderDetails.city + ', ' + props.orderDetails.state}
+          </span>
           <p>{props.orderDetails.zipCode}</p>
         </div>
       </ul>

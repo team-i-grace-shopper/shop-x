@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import CheckoutConfirmation from './checkout_confirmation'
 import {me} from '../store/user'
-import {Redirect} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
 class CheckoutForm extends React.Component {
   constructor(props) {
@@ -10,7 +10,7 @@ class CheckoutForm extends React.Component {
     this.state = {
       firstName: '',
       lastName: '',
-      email: '',
+      email: this.props.email,
       address: '',
       city: '',
       state: '',
@@ -21,6 +21,8 @@ class CheckoutForm extends React.Component {
     this.handleChange = this.handleChange.bind(this)
     this.handlePreview = this.handlePreview.bind(this)
     this.handleConfirm = this.handleConfirm.bind(this)
+    this.handleSelectionChange = this.handleSelectionChange.bind(this)
+    this.setUser = this.setUser.bind(this)
   }
 
   states = [
@@ -87,6 +89,7 @@ class CheckoutForm extends React.Component {
 
   componentDidMount() {
     this.props.getUser()
+    this.setUser()
     this.getItemsFromCart()
   }
 
@@ -105,7 +108,12 @@ class CheckoutForm extends React.Component {
 
   handleChange(event) {
     this.setState({
-      [event.target.name]: event.target.value,
+      [event.target.name]: event.target.value
+    })
+  }
+
+  handleSelectionChange(event) {
+    this.setState({
       state: event.target.value
     })
   }
@@ -122,6 +130,12 @@ class CheckoutForm extends React.Component {
     })
   }
 
+  setUser() {
+    this.setState({
+      email: this.props.email || ''
+    })
+  }
+
   render() {
     if (this.state.step === 1) {
       return (
@@ -129,7 +143,9 @@ class CheckoutForm extends React.Component {
           <div className="form-ctn">
             <form>
               <label htmlFor="firstName">
+                First Name:{' '}
                 <input
+                  required="required"
                   name="firstName"
                   type="text"
                   value={this.state.firstName}
@@ -137,7 +153,9 @@ class CheckoutForm extends React.Component {
                 />
               </label>
               <label htmlFor="lastName">
+                Last Name:
                 <input
+                  required="required"
                   name="lastName"
                   type="text"
                   value={this.state.lastName}
@@ -146,16 +164,20 @@ class CheckoutForm extends React.Component {
               </label>
               {this.props.email ? (
                 <label htmlFor="email">
+                  Email:{' '}
                   <input
+                    required="required"
                     name="email"
                     type="email"
-                    value={this.props.email}
+                    defaultValue={this.props.email}
                     onChange={this.handleChange}
                   />
                 </label>
               ) : (
                 <label htmlFor="email">
+                  Email:{' '}
                   <input
+                    required="required"
                     name="email"
                     type="email"
                     value={this.state.email}
@@ -164,7 +186,9 @@ class CheckoutForm extends React.Component {
                 </label>
               )}
               <label htmlFor="address">
+                Street Address:{' '}
                 <input
+                  required="required"
                   name="address"
                   type="text"
                   value={this.state.address}
@@ -172,7 +196,9 @@ class CheckoutForm extends React.Component {
                 />
               </label>
               <label htmlFor="city">
+                City:{' '}
                 <input
+                  required="required"
                   type="text"
                   name="city"
                   value={this.state.city}
@@ -180,7 +206,11 @@ class CheckoutForm extends React.Component {
                 />
               </label>
               <label htmlFor="state">
-                <select onChange={this.handleChange} value={this.state.state}>
+                State:{' '}
+                <select
+                  required="required"
+                  onChange={this.handleSelectionChange}
+                >
                   {this.states.map((state, i) => {
                     return (
                       <option name="state" key={i} value={state}>
@@ -191,16 +221,19 @@ class CheckoutForm extends React.Component {
                 </select>
               </label>
               <label htmlFor="zipCode">
+                Zip Code:
                 <input
+                  required
                   type="text"
                   name="zipCode"
                   value={this.state.zipCode}
                   onChange={this.handleChange}
                 />
               </label>
-              <button onClick={this.handlePreview} type="button">
+              <Link to="/cart">Back to My Cart</Link>
+              <a href="#" onClick={this.handlePreview} type="button">
                 Preview Order Details
-              </button>
+              </a>
             </form>
           </div>
         </div>
@@ -214,7 +247,14 @@ class CheckoutForm extends React.Component {
         />
       )
     } else if (this.state.step === 3) {
-      return <h1>Thank you! Your order is complete</h1>
+      return (
+        <div>
+          <h1>Thank you! Your order is complete</h1>
+          <p>
+            Continue Shopping <Link to="/shop">Shop</Link>
+          </p>
+        </div>
+      )
     }
   }
 }
