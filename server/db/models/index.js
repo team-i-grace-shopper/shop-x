@@ -1,12 +1,16 @@
+/* eslint-disable no-undef */
 const User = require('./user')
 const Product = require('./product')
+const Order = require('./order')
+const OrderDetail = require('./orderDetail')
 
-/**
- * If we had any associations to make, this would be a great place to put them!
- * ex. if we had another model called BlogPost, we might say:
- *
- *    BlogPost.belongsTo(User)
- */
+// Users and Orders = one to many
+User.hasMany(Order)
+Order.belongsTo(User)
+
+// Orders and Products = many to many
+Order.belongsToMany(Product, {through: OrderDetail})
+Product.belongsToMany(Order, {through: OrderDetail})
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,
@@ -16,5 +20,7 @@ const Product = require('./product')
  */
 module.exports = {
   User,
-  Product
+  Product,
+  Order,
+  OrderDetail
 }
