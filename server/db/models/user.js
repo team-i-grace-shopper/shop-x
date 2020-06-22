@@ -41,6 +41,9 @@ module.exports = User
 User.prototype.correctPassword = function(candidatePwd) {
   return User.encryptPassword(candidatePwd, this.salt()) === this.password()
 }
+User.prototype.isAdmin = function() {
+  return this.accountType === 'admin'
+}
 
 /**
  * classMethods
