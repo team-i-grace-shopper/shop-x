@@ -22,7 +22,9 @@ class AllProducts extends React.Component {
     const productToAdd = {
       name: this.props.products[event.target.id - 1].name,
       price: this.props.products[event.target.id - 1].price,
-      quantity: Number(this.state.qty)
+      quantity: Number(this.state.qty),
+      id: this.props.products[event.target.id - 1].id,
+      imageUrl: this.props.products[event.target.id - 1].imageUrl
     }
 
     if (!localStorage.getItem('cart')) {

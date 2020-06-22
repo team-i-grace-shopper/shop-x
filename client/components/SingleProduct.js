@@ -17,6 +17,8 @@ class SingleProduct extends React.Component {
 
   addToCart() {
     const productToAdd = {
+      id: this.props.singleProduct.id,
+      imageUrl: this.props.singleProduct.imageUrl,
       name: this.props.singleProduct.name,
       price: this.props.singleProduct.price,
       quantity: this.state.quantity

@@ -7,7 +7,11 @@ export default function Cart(props) {
     return <h1>There are no items in the cart</h1>
   }
 
-  return items.map(item => {
-    return <CartItem item={item} />
-  })
+  return (
+    <div className="cartAll">
+      {items.map(item => {
+        return <CartItem item={item} />
+      })}
+    </div>
+  )
 }
