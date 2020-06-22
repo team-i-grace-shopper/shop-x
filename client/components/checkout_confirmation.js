@@ -1,7 +1,6 @@
 import React from 'react'
 
 const CheckoutConfirmation = props => {
-  console.log('props', props)
   return (
     <div>
       <ul>
@@ -13,7 +12,7 @@ const CheckoutConfirmation = props => {
         </div>
 
         <div>
-          Email: <span>{props.orderDetails.email}</span>
+          Email: <span>{props.email || props.orderDetails.email}</span>
         </div>
 
         <div>

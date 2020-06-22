@@ -88,8 +88,7 @@ class CheckoutForm extends React.Component {
   ]
 
   componentDidMount() {
-    this.props.getUser()
-    this.setUser()
+    this.props.getUser().then(this.setUser())
     this.getItemsFromCart()
   }
 
@@ -130,9 +129,10 @@ class CheckoutForm extends React.Component {
     })
   }
 
-  setUser() {
-    this.setState({
-      email: this.props.email || ''
+  async setUser() {
+    await this.setState({
+      email: this.props.email,
+      updated: true
     })
   }
 
@@ -244,6 +244,7 @@ class CheckoutForm extends React.Component {
           orderDetails={this.state}
           handleConfirm={this.handleConfirm}
           getItemsFromCart={this.getItemsFromCart}
+          email={this.props.email}
         />
       )
     } else if (this.state.step === 3) {
