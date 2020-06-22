@@ -20,7 +20,12 @@ form div {
   display: inline-block;
 }
 
+.cart {
+  display: flex;
+}
+
 .cartAll {
+  border: solid black;
   display: flex;
   flex-direction: column;
 }
