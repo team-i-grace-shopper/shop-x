@@ -35,8 +35,12 @@ class SingleProduct extends React.Component {
       localStorage.setItem('cart', JSON.stringify([productToAdd]))
     } else {
       const newCart = JSON.parse(localStorage.getItem('cart'))
-      const product = newCart.filter(item => item.id !== this.props.id)[0]
-      product.quantity = Number(product.quantity) + Number(this.state.quantity)
+      const product = newCart.find(item => item.id === Number(this.props.id))
+      if (product) {
+        product.quantity = Number(product.quantity) + Number(this.state.qty)
+      } else {
+        newCart.push(productToAdd)
+      }
       localStorage.setItem('cart', JSON.stringify(newCart))
     }
     this.setState({
@@ -63,9 +67,18 @@ class SingleProduct extends React.Component {
           <div className="productInfoBlock">
             <p>{this.props.singleProduct.description}</p>
           </div>
+          <div>
+            <h2>Price per item: {this.props.singleProduct.price}$</h2>
+          </div>
         </div>
         <div>
-          <input type="number" defaultValue="1" onChange={this.handleChange} />
+          <input
+            type="number"
+            defaultValue="1"
+            onChange={this.handleChange}
+            min="1"
+            max="20"
+          />
           <button
             type="button"
             className="addToCartButton"
