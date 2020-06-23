@@ -12,6 +12,8 @@ export class Cart extends Component {
   constructor(props) {
     super(props)
     this.state = {products: [], cartTotal: 0}
+    this.remove = this.remove.bind(this)
+    this.emptyCart = this.emptyCart.bind(this)
   }
 
   componentDidMount() {
@@ -28,6 +30,19 @@ export class Cart extends Component {
   emptyCart() {
     localStorage.removeItem('cart')
     this.setState({products: null})
+  }
+
+  remove(id) {
+    const cart = JSON.parse(localStorage.getItem('cart'))
+    const newCart = cart.filter(product => product.id !== id)
+    console.log('NEW CART', newCart)
+    if (!newCart.length) {
+      this.setState({products: null})
+      localStorage.removeItem('cart')
+    } else {
+      this.setState({products: newCart})
+      localStorage.setItem('cart', JSON.stringify(newCart))
+    }
   }
 
   render() {
@@ -47,7 +62,7 @@ export class Cart extends Component {
                 <CartItem
                   product={exp}
                   key={index}
-                  remove={() => this.remove(item.id)}
+                  remove={() => this.remove(exp.id)}
                 />
               </div>
             )
