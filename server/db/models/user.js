@@ -26,6 +26,10 @@ const User = db.define('user', {
   },
   googleId: {
     type: Sequelize.STRING
+  },
+  accountType: {
+    type: Sequelize.ENUM('customer', 'admin'),
+    defaultValue: 'customer'
   }
 })
 
@@ -36,6 +40,9 @@ module.exports = User
  */
 User.prototype.correctPassword = function(candidatePwd) {
   return User.encryptPassword(candidatePwd, this.salt()) === this.password()
+}
+User.prototype.isAdmin = function() {
+  return this.accountType === 'admin'
 }
 
 /**
