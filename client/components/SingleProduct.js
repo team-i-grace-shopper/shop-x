@@ -6,19 +6,28 @@ class SingleProduct extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      quantity: 0
+      quantity: 1
     }
     this.addToCart = this.addToCart.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
 
   componentDidMount() {
     this.props.fetchSingleProducts(this.props.id)
   }
 
+  handleChange(event) {
+    this.setState({
+      quantity: event.target.value
+    })
+  }
+
   addToCart() {
     const productToAdd = {
+      id: this.props.singleProduct.id,
       name: this.props.singleProduct.name,
       price: this.props.singleProduct.price,
+      imageUrl: this.props.singleProduct.imageUrl,
       quantity: this.state.quantity
     }
 
@@ -26,15 +35,14 @@ class SingleProduct extends React.Component {
       localStorage.setItem('cart', JSON.stringify([productToAdd]))
     } else {
       const newCart = JSON.parse(localStorage.getItem('cart'))
-      newCart.push(productToAdd)
+      const product = newCart.filter(item => item.id !== this.props.id)[0]
+      product.quantity = Number(product.quantity) + Number(this.state.quantity)
       localStorage.setItem('cart', JSON.stringify(newCart))
     }
+    this.setState({
+      qty: 1
+    })
   }
-
-  // function handleChange(event) {
-  //   const value = event.target.value.replace(/\+|-/ig, '');
-  //   this.setState({quantity: value});
-  // }
 
   render() {
     console.log(this.props.singleProduct)
@@ -57,6 +65,7 @@ class SingleProduct extends React.Component {
           </div>
         </div>
         <div>
+          <input type="number" defaultValue="1" onChange={this.handleChange} />
           <button
             type="button"
             className="addToCartButton"
