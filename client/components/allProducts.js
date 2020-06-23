@@ -31,7 +31,8 @@ class AllProducts extends React.Component {
       localStorage.setItem('cart', JSON.stringify([productToAdd]))
     } else {
       const newCart = JSON.parse(localStorage.getItem('cart'))
-      const product = newCart.filter(item => item.id !== event.target.id)[0]
+      const product = newCart.find(item => item.id === Number(event.target.id))
+      console.log({newCart, product, targetId: event.target.id})
       if (product) {
         product.quantity = Number(product.quantity) + Number(this.state.qty)
       } else {
@@ -59,7 +60,7 @@ class AllProducts extends React.Component {
           this.props.products.map(exp => {
             return (
               <div key={exp.id}>
-                <Link to={`/shop/${exp.id}`}>
+                <Link to={`/products/${exp.id}`}>
                   <ProductList products={exp} />
                 </Link>
 
@@ -67,6 +68,8 @@ class AllProducts extends React.Component {
                   type="number"
                   defaultValue="1"
                   onChange={this.handleChange}
+                  min="1"
+                  max="20"
                 />
                 <button onClick={this.addToCart} id={exp.id} type="button">
                   Add To Cart
