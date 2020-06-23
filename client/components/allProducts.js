@@ -59,7 +59,7 @@ class AllProducts extends React.Component {
           this.props.products.map(exp => {
             return (
               <div key={exp.id}>
-                <Link to={`/shop/${exp.id}`}>
+                <Link to={`/products/${exp.id}`}>
                   <ProductList products={exp} />
                 </Link>
 
@@ -67,6 +67,8 @@ class AllProducts extends React.Component {
                   type="number"
                   defaultValue="1"
                   onChange={this.handleChange}
+                  min="1"
+                  max="20"
                 />
                 <button onClick={this.addToCart} id={exp.id} type="button">
                   Add To Cart

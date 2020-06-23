@@ -63,9 +63,18 @@ class SingleProduct extends React.Component {
           <div className="productInfoBlock">
             <p>{this.props.singleProduct.description}</p>
           </div>
+          <div>
+            <h2>Price per item: {this.props.singleProduct.price}$</h2>
+          </div>
         </div>
         <div>
-          <input type="number" defaultValue="1" onChange={this.handleChange} />
+          <input
+            type="number"
+            defaultValue="1"
+            onChange={this.handleChange}
+            min="1"
+            max="20"
+          />
           <button
             type="button"
             className="addToCartButton"
