@@ -26,9 +26,7 @@ router.get('/:productId', async (req, res, next) => {
 })
 
 // verifyAdmin middleware
-router.use((req, res, next) => {
-  verifyAdmin(req, res, next)
-}) // checks if user is has admin accountType
+router.use(verifyAdmin) // checks if user is has admin accountType
 // protects all routes below
 
 router.post('/', async (req, res, next) => {
