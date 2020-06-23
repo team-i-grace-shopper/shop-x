@@ -131,12 +131,6 @@ class CheckoutForm extends React.Component {
     this.setState({
       step: 3
     })
-    let id = this.props.id
-    axios.put(`/api/cart/${id}`, {
-      orderTotal: null,
-      complete: true,
-      userId: this.props.id || null
-    })
     window.localStorage.clear()
   }
 
@@ -274,6 +268,7 @@ class CheckoutForm extends React.Component {
         />
       )
     } else if (this.state.step === 3) {
+      console.log('we are on this step: ', this.state.step)
       return (
         <div>
           <h1>Thank you! Your order is complete</h1>
@@ -281,7 +276,7 @@ class CheckoutForm extends React.Component {
             <button
               type="button"
               onClick={() => {
-                this.props.history.push('/shop')
+                this.props.history.push('/products')
               }}
             >
               Continue Shopping

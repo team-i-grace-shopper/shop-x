@@ -1,6 +1,10 @@
 import React from 'react'
 
 const CheckoutConfirmation = props => {
+  const hanldeSubmit = () => {
+    props.postOrder()
+    props.handleConfirm()
+  }
   return (
     <div>
       <ul>
@@ -25,7 +29,7 @@ const CheckoutConfirmation = props => {
         </div>
       </ul>
       {props.getItemsFromCart()}
-      <button onClick={props.postOrder} type="button">
+      <button onClick={hanldeSubmit} type="button">
         Confirm
       </button>
     </div>
