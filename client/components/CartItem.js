@@ -7,10 +7,11 @@ class CartItem extends React.Component {
   }
 
   handleChange(event) {
+    console.log('I got into handle change')
     const newCart = JSON.parse(localStorage.getItem('cart'))
-    const selectedItem = newCart.filter(
-      product => product.id !== this.props.item.id
-    )[0]
+    const selectedItem = newCart.find(
+      product => product.id === this.props.item.id
+    )
     selectedItem.quantity = event.target.value
     localStorage.setItem('cart', JSON.stringify(newCart))
   }
