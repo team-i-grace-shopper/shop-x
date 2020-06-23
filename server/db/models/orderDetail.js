@@ -3,12 +3,15 @@ const db = require('../db')
 
 // serves as Orders to Products join table
 const OrderDetail = db.define(
-  'orderDetail',
+  'order_detail',
   {
     productQty: {
       type: Sequelize.INTEGER,
       allowNull: false,
       validate: {min: 1}
+    },
+    price: {
+      type: Sequelize.INTEGER
     }
   },
   {timestamps: false}
