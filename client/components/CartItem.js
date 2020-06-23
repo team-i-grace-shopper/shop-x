@@ -41,6 +41,13 @@ export class CartItem extends Component {
                 </table>
               </td>
             </tr>
+            <td>
+              <div className="empty-cart">
+                <button className="empty-btn" type="button">
+                  Empty Cart
+                </button>
+              </div>
+            </td>
           </table>
           <table style={{float: 'left'}}>
             <tr>
