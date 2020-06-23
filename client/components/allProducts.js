@@ -19,6 +19,7 @@ class AllProducts extends React.Component {
   }
 
   addToCart(event) {
+    console.log(typeof event.target.id)
     const productToAdd = {
       id: this.props.products[event.target.id - 1].id,
       name: this.props.products[event.target.id - 1].name,
@@ -31,7 +32,8 @@ class AllProducts extends React.Component {
       localStorage.setItem('cart', JSON.stringify([productToAdd]))
     } else {
       const newCart = JSON.parse(localStorage.getItem('cart'))
-      const product = newCart.filter(item => item.id !== event.target.id)[0]
+      const product = newCart.find(item => item.id === Number(event.target.id))
+      console.log({newCart, product, targetId: event.target.id})
       if (product) {
         product.quantity = Number(product.quantity) + Number(this.state.qty)
       } else {

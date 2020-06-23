@@ -25,9 +25,9 @@ class SingleProduct extends React.Component {
   addToCart() {
     const productToAdd = {
       id: this.props.singleProduct.id,
+      imageUrl: this.props.singleProduct.imageUrl,
       name: this.props.singleProduct.name,
       price: this.props.singleProduct.price,
-      imageUrl: this.props.singleProduct.imageUrl,
       quantity: this.state.quantity
     }
 
@@ -35,7 +35,7 @@ class SingleProduct extends React.Component {
       localStorage.setItem('cart', JSON.stringify([productToAdd]))
     } else {
       const newCart = JSON.parse(localStorage.getItem('cart'))
-      const product = newCart.filter(item => item.id !== this.props.id)[0]
+      const product = newCart.find(item => item.id === Number(this.props.id))
       product.quantity = Number(product.quantity) + Number(this.state.quantity)
       localStorage.setItem('cart', JSON.stringify(newCart))
     }
