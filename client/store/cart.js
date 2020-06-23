@@ -9,6 +9,7 @@ const EMPTY_CART = 'EMPTY_CART'
 /**
  * INITIAL STATE
  */
+//
 const defaultCart = {
   addedItems: [],
   cartTotal: 0
@@ -23,13 +24,22 @@ const emptyCart = () => ({type: EMPTY_CART})
 /**
  * THUNK CREATORS
  */
-export const addProductFromServer = () => async dispatch => {
+export const addProductFromServer = id => async dispatch => {
   try {
     // TODO: update path to product
-    const res = await axios.get('PATH-TO-PRODUCT')
+    const res = await axios.get('/api/products/:id')
     dispatch(addProduct(res.data))
   } catch (err) {
     console.error(err)
+  }
+}
+
+export const addProductFromLocalStore = () => dispatch => {
+  try {
+    const data = window.localStorage.getItem('cart')
+    dispatch(addProduct(data))
+  } catch (error) {
+    console.log(error)
   }
 }
 
@@ -55,7 +65,8 @@ export default function(state = defaultCart, action) {
       }
     }
     case EMPTY_CART:
-      return {}
+      return defaultCart
+
     default:
       return state
   }
