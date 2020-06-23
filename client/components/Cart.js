@@ -16,6 +16,7 @@ class Cart extends React.Component {
     }
 
     this.remove = this.remove.bind(this)
+    this.emptyCart = this.emptyCart.bind(this)
   }
 
   // componentDidMount() {
@@ -33,6 +34,11 @@ class Cart extends React.Component {
     } else {
       this.setState({items: newCart})
     }
+  }
+
+  emptyCart() {
+    localStorage.removeItem('cart')
+    this.setState({items: null})
   }
 
   render() {
@@ -61,6 +67,9 @@ class Cart extends React.Component {
               />
             )
           })}
+          <button type="button" onClick={this.emptyCart}>
+            EMPTY CART
+          </button>
         </div>
         <div>
           <h1>Totals:</h1>
