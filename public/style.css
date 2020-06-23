@@ -27,3 +27,36 @@ form div {
 
 .item-totals {
 }
+
+.cart {
+  display: flex;
+}
+
+.cartAll {
+  border: solid black;
+  display: flex;
+  flex-direction: column;
+}
+
+.cartItem {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+}
+
+div .cartImage img {
+  width: auto;
+  height: 30vh;
+}
+
+.cartDeatils {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+}
+
+.cartDetailsBlock {
+  font-size: 12px;
+  flex-direction: column;
+  justify-content: left;
+}

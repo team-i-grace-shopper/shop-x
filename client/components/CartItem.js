@@ -3,76 +3,42 @@ import React, {Component} from 'react'
 export class CartItem extends Component {
   constructor(props) {
     super(props)
-    this.state = {quantity: 1}
+    // this.state = {quantity: 1}
+    this.handleChange = this.handleChange.bind(this)
   }
+
+  handleChange(event) {
+    console.log('I got into handle change')
+    const newCart = JSON.parse(localStorage.getItem('cart'))
+    const selectedItem = newCart.find(
+      product => product.id === this.props.product.id
+    )
+    selectedItem.quantity = event.target.value
+    localStorage.setItem('cart', JSON.stringify(newCart))
+  }
+
   render() {
     return (
-      <div>
-        {/* <table>
-            <tbody>
-              <tr>
-                <td rowSpan="3">
-                  <img src={this.props.product.imageUrl} />
-                </td>
-                <td>Name</td>
-                <td></td>
-                <td>Price</td>
-              </tr>
-              <tr>
-                <td rowSpan="2">{this.props.product.name}</td>
-                <td></td>
-                <td>{this.props.product.price}</td>
-              </tr>
-              <tr>
-                <td>
-                  <button className="remove" type="remove-btn">Remove</button>
-                </td>
-              </tr>
-            </tbody>
-          </table> */}
-
-        {/* <div className="collection-items">
-          <div className="product-img">
+      <div className="cartItem">
+        <div className="cartImage">
           <img src={this.props.product.imageUrl} />
-          </div>
-          <div className="product-name">
-            Name
-          <div>
-          {this.props.product.name}
-          </div>
-          </div>
-        <div className="quantity">
-          <button className="minus-btn" type="button">
-            -
-          </button>
-          <input type="text" value="1" />
-          <button className="plus-btn" type="button">
-            +
-          </button>
         </div>
-      </div> */}
-        <div className="collection-items">
-          <div className="item-img">
-            <img src={this.props.product.imageUrl} className="" />
+        <div className="cartDetails">
+          <div className="cartDetailsBlock">
+            <h1>{this.props.product.name}</h1>
           </div>
-          <div className="item-desc">
-            <span className="title">{this.props.product.name}</span>
-            <p>
-              <b>Price: {this.props.product.price}</b>
-            </p>
-            <p>
-              <div className="quantity">
-                <button className="minus-btn" type="button">
-                  -
-                </button>
-                <input type="text" value="1" />
-                <button className="plus-btn" type="button">
-                  +
-                </button>
-              </div>
-            </p>
-            <button className="remove" type="button">
-              Remove
+          <div>
+            <h2>Price:{this.props.product.price}</h2>
+            <h2>Qunatity:</h2>
+            <input
+              type="number"
+              defaultValue={this.props.product.quantity}
+              min="1"
+              max="20"
+              onChange={this.handleChange}
+            />
+            <button type="button" onClick={this.props.remove}>
+              remove
             </button>
           </div>
         </div>
