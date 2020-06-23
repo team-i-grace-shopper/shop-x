@@ -2,13 +2,17 @@ import React from 'react'
 import CartItem from './CartItem'
 
 let items = JSON.parse(localStorage.getItem('cart'))
-let totalItems = items.reduce(function(accum, currV) {
-  return accum + currV.quantity
-}, 0)
+let totalItems
 
-export default class Cart extends React.component {
-  constructor() {
+class Cart extends React.Component {
+  constructor(props) {
     super(props)
+  }
+
+  componentDidMount() {
+    totalItems = items.reduce(function(accum, currV) {
+      return accum + currV.quantity
+    }, 0)
   }
 
   render() {
@@ -16,11 +20,15 @@ export default class Cart extends React.component {
       return <h1>There are no items in the cart</h1>
     }
 
+    totalItems = items.reduce(function(accum, currV) {
+      return accum + currV.quantity
+    }, 0)
+
     return (
       <div className="cart">
         <div className="cartAll">
-          {items.map(item => {
-            return <CartItem item={item} />
+          {items.map((item, index) => {
+            return <CartItem item={item} key={index} />
           })}
         </div>
         <div>
@@ -31,3 +39,5 @@ export default class Cart extends React.component {
     )
   }
 }
+
+export default Cart
