@@ -75,6 +75,9 @@ class Cart extends React.Component {
           <h1>Totals:</h1>
           <h2>Total items in cart: {totalItems}</h2>
           <h2>Total due: {totalDue} $</h2>
+          <button type="button" onClick={this.emptyCart}>
+            CHECKOUT
+          </button>
         </div>
       </div>
     )
