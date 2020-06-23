@@ -1,5 +1,6 @@
 import React from 'react'
 import CartItem from './CartItem'
+import {Link} from 'react-router-dom'
 
 let items = null
 if (localStorage.getItem('cart')) {
@@ -75,9 +76,9 @@ class Cart extends React.Component {
           <h1>Totals:</h1>
           <h2>Total items in cart: {totalItems}</h2>
           <h2>Total due: {totalDue} $</h2>
-          <button type="button" onClick={this.emptyCart}>
-            CHECKOUT
-          </button>
+          <Link to="/cart/checkout">
+            <button type="button">CHECKOUT</button>
+          </Link>
         </div>
       </div>
     )
