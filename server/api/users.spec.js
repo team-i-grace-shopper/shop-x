@@ -1,32 +1,51 @@
-/* global describe beforeEach it */
+// /* global describe beforeEach it */
 
-const {expect} = require('chai')
-const request = require('supertest')
-const db = require('../db')
-const app = require('../index')
-const User = db.model('user')
+// const {expect} = require('chai')
+// const request = require('supertest')
+// const db = require('../db')
+// const app = require('../index')
+// const User = db.model('user')
 
-describe('User routes', () => {
-  beforeEach(() => {
-    return db.sync({force: true})
-  })
+// describe('User routes', () => {
+//   beforeEach(() => {
+//     return db.sync({force: true})
+//   })
 
-  describe('/api/users/', () => {
-    const codysEmail = 'cody@puppybook.com'
+//   describe('/api/users/', () => {
+//     describe('GET /api/users ', () => {
+//       let newCustomer
+//       let newAdmin
 
-    beforeEach(() => {
-      return User.create({
-        email: codysEmail
-      })
-    })
+//       const customerEmail = 'cody@puppybook.com'
+//       const customerPassword = '321'
 
-    it('GET /api/users', async () => {
-      const res = await request(app)
-        .get('/api/users')
-        .expect(200)
+//       const adminEmail = 'admin@email.com'
+//       const adminPassword = 'admin'
 
-      expect(res.body).to.be.an('array')
-      expect(res.body[0].email).to.be.equal(codysEmail)
-    })
-  }) // end describe('/api/users')
-}) // end describe('User routes')
+//       beforeEach(async () => {
+//         newCustomer = await User.create({
+//           email: customerEmail,
+//           password: customerPassword
+//         })
+
+//         newAdmin = await User.create({
+//           email: adminEmail,
+//           password: adminPassword,
+//           accountType: 'admin'
+//         })
+//       })
+
+//       it('only admin can access all users', async () => {
+//         const res = await request(app)
+//           .post("/auth/login")
+//           .send(newAdmin)
+//           .get('/api/users')
+//           .send({email: adminEmail, password: adminPassword})
+//           .expect(200)
+//         console.log(res.body)
+//         // expect(res.body).to.be.an('array')
+//         // expect(res.body[0].email).to.be.equal(codysEmail)
+//       })
+//     })
+//   }) // end describe('/api/users')
+// }) // end describe('User routes')
