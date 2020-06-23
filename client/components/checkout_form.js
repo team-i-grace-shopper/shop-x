@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import CheckoutConfirmation from './checkout_confirmation'
 import {me} from '../store/user'
 import {Link} from 'react-router-dom'
+import history from '../history'
 
 class CheckoutForm extends React.Component {
   constructor(props) {
@@ -230,7 +231,15 @@ class CheckoutForm extends React.Component {
                   onChange={this.handleChange}
                 />
               </label>
-              <Link to="/cart">Back to My Cart</Link>
+              Continue Shopping{' '}
+              <button
+                type="button"
+                onClick={() => {
+                  this.props.history.push('/cart')
+                }}
+              >
+                Back To Cart
+              </button>
               <a href="#" onClick={this.handlePreview} type="button">
                 Preview Order Details
               </a>
@@ -239,6 +248,12 @@ class CheckoutForm extends React.Component {
         </div>
       )
     } else if (this.state.step === 2) {
+      // if(!this.state.firstName || !this.state.lastName || !this.state.email || !this.state.address || !this.state.state || this.state.zipCode && this.state.step === 1){
+      //   return (
+      //     <h1>*Please fill in all Fields*</h1>
+
+      //   )
+      // }
       return (
         <CheckoutConfirmation
           orderDetails={this.state}
@@ -252,7 +267,14 @@ class CheckoutForm extends React.Component {
         <div>
           <h1>Thank you! Your order is complete</h1>
           <p>
-            Continue Shopping <Link to="/shop">Shop</Link>
+            <button
+              type="button"
+              onClick={() => {
+                this.props.history.push('/shop')
+              }}
+            >
+              Continue Shopping
+            </button>
           </p>
         </div>
       )
