@@ -19,3 +19,11 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+.collection-items {
+  display: flex;
+  flex-direction: column;
+}
+
+.item-totals {
+}

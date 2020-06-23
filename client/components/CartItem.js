@@ -6,8 +6,6 @@ export class CartItem extends Component {
     this.state = {quantity: 1}
   }
   render() {
-    // const { product } = this.props;
-    console.log(this.props.product)
     return (
       <div>
         {/* <table>
@@ -27,35 +25,22 @@ export class CartItem extends Component {
               </tr>
               <tr>
                 <td>
-                  <button>Remove From Cart</button>
+                  <button className="remove" type="remove-btn">Remove</button>
                 </td>
               </tr>
             </tbody>
           </table> */}
-        <div>
-          <table style={{float: 'left'}}>
-            <tr>
-              <td>
-                <table>
-                  <td />
-                </table>
-              </td>
-            </tr>
-            <td>
-              <div className="empty-cart">
-                <button className="empty-btn" type="button">
-                  Empty Cart
-                </button>
-              </div>
-            </td>
-          </table>
-          <table style={{float: 'left'}}>
-            <tr>
-              <td>..</td>
-            </tr>
-          </table>
-        </div>
 
+        {/* <div className="collection-items">
+          <div className="product-img">
+          <img src={this.props.product.imageUrl} />
+          </div>
+          <div className="product-name">
+            Name
+          <div>
+          {this.props.product.name}
+          </div>
+          </div>
         <div className="quantity">
           <button className="minus-btn" type="button">
             -
@@ -65,13 +50,33 @@ export class CartItem extends Component {
             +
           </button>
         </div>
+      </div> */}
+        <div className="collection-items">
+          <div className="item-img">
+            <img src={this.props.product.imageUrl} className="" />
+          </div>
+          <div className="item-desc">
+            <span className="title">{this.props.product.name}</span>
+            <p>
+              <b>Price: {this.props.product.price}</b>
+            </p>
+            <p>
+              <div className="quantity">
+                <button className="minus-btn" type="button">
+                  -
+                </button>
+                <input type="text" value="1" />
+                <button className="plus-btn" type="button">
+                  +
+                </button>
+              </div>
+            </p>
+            <button className="remove" type="button">
+              Remove
+            </button>
+          </div>
+        </div>
       </div>
     )
   }
 }
-
-// const MapStateToProps = (state) => ({
-
-// })
-
-// const MapDispatchToProps = (dispatch) =>{}

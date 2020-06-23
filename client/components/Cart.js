@@ -2,6 +2,7 @@ import {addProductFromLocalStore} from '../store/cart'
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {CartItem} from './CartItem'
+import {Link} from 'react-router-dom'
 
 // This component needs too, store state in our this.state
 // It's going to be an array, this.props.shoppingCart
@@ -12,15 +13,19 @@ import {CartItem} from './CartItem'
 export class Cart extends Component {
   constructor(props) {
     super(props)
-    this.state = {products: [], total: 0}
+    this.state = {products: [], cartTotal: 0}
   }
-  // componentDidMount(){
-  //     // this.props.getItem()
-  //     // console.log(this.props)
-  // }
-  // totalItems(products, total){
-  //     for(let i = 0; i <= products.length);
-  // }
+
+  componentDidMount() {
+    const getCartItems = JSON.parse(localStorage.getItem('cart'))
+    let sum = 0
+
+    for (let i = 0; i < getCartItems.length; i++) {
+      sum += getCartItems[i].price
+    }
+
+    this.setState({products: getCartItems, cartTotal: sum})
+  }
 
   render() {
     // const { products, total } =  this.state;
@@ -34,28 +39,36 @@ export class Cart extends Component {
     //     )
     // }
     if (!localStorage.getItem('cart')) {
-      return null
+      return (
+        <div>
+          <h1>There are no items in cart</h1>
+        </div>
+      )
     }
     return (
-      <div>
+      <div className="cart-item">
         {JSON.parse(localStorage.getItem('cart')).map(exp => {
           return (
-            <div>
+            <div key={exp.id}>
               <CartItem product={exp} />
             </div>
-            // <table>
-            //     <tr>
-            //         <td>Total Items</td>
-            //         <td>
-            //             {}
-            //         </td>
-            //     </tr>
-            // </table>
-            // </div>
           )
         })}
-        {/* <h1>hello</h1> */}
-        {/* <CartItem /> */}
+        <div className="empty-cart">
+          <button className="empty-btn" type="button">
+            Empty Cart
+          </button>
+        </div>
+        <div className="cartTotal">
+          <p>Your Cart Total: ${this.state.cartTotal}</p>
+        </div>
+        <div className="checkout-btn">
+          <Link to="/cart/checkout">
+            <button className="checkout" type="button">
+              Checkout
+            </button>
+          </Link>
+        </div>
       </div>
     )
   }
