@@ -4,6 +4,7 @@ import CheckoutConfirmation from './checkout_confirmation'
 import {me} from '../store/user'
 import {Link} from 'react-router-dom'
 import history from '../history'
+import axios from 'axios'
 
 class CheckoutForm extends React.Component {
   constructor(props) {
@@ -127,6 +128,11 @@ class CheckoutForm extends React.Component {
   handleConfirm() {
     this.setState({
       step: 3
+    })
+    axios.put('/api/cart/1', {
+      orderTotal: null,
+      complete: true,
+      userId: null
     })
   }
 

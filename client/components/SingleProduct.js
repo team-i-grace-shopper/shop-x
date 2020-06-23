@@ -1,24 +1,36 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import {connect} from 'react-redux'
 import {fetchSingleProductThunk} from '../store/singleProduct'
+import {postSingleOrderThunk} from '../store/order'
 
 class SingleProduct extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      quantity: 0
+      quantity: 1
     }
     this.addToCart = this.addToCart.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
 
   componentDidMount() {
     this.props.fetchSingleProducts(this.props.id)
   }
 
+  handleChange(event) {
+    this.setState({
+      quantity: event.target.value
+    })
+  }
+
   addToCart() {
     const productToAdd = {
-      name: this.props.singleProduct.name,
-      price: this.props.singleProduct.price,
+      // id: this.props.singleProduct.id,
+      // name: this.props.singleProduct.name,
+      // price: this.props.singleProduct.price,
+      // imageUrl: this.props.singleProduct.imageUrl,
+      // quantity: this.state.quantity,
+      product: this.props.singleProduct,
       quantity: this.state.quantity
     }
 
@@ -26,15 +38,14 @@ class SingleProduct extends React.Component {
       localStorage.setItem('cart', JSON.stringify([productToAdd]))
     } else {
       const newCart = JSON.parse(localStorage.getItem('cart'))
-      newCart.push(productToAdd)
+      const product = newCart.filter(item => item.id !== this.props.id)[0]
+      product.quantity = Number(product.quantity) + Number(this.state.quantity)
       localStorage.setItem('cart', JSON.stringify(newCart))
     }
+    this.setState({
+      quantity: 1
+    })
   }
-
-  // function handleChange(event) {
-  //   const value = event.target.value.replace(/\+|-/ig, '');
-  //   this.setState({quantity: value});
-  // }
 
   render() {
     console.log(this.props.singleProduct)
@@ -57,6 +68,7 @@ class SingleProduct extends React.Component {
           </div>
         </div>
         <div>
+          <input type="number" defaultValue="1" onChange={this.handleChange} />
           <button
             type="button"
             className="addToCartButton"
@@ -65,6 +77,14 @@ class SingleProduct extends React.Component {
             }}
           >
             ADD TO CART
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              this.props.postOrder()
+            }}
+          >
+            COMPLETE ORDER
           </button>
         </div>
       </div>
@@ -77,8 +97,10 @@ const mapState = (state, props) => ({
   id: props.match.params.productId
 })
 
-const mapDispatchToProps = dispatch => ({
-  fetchSingleProducts: id => dispatch(fetchSingleProductThunk(id))
-})
+const mapDispatchToProps = dispatch =>
+  console.log('I was in mapDispatchToProps') || {
+    fetchSingleProducts: id => dispatch(fetchSingleProductThunk(id)),
+    postOrder: () => dispatch(postSingleOrderThunk())
+  }
 
 export default connect(mapState, mapDispatchToProps)(SingleProduct)
