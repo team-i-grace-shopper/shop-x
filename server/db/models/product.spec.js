@@ -76,6 +76,11 @@ describe('Product model', () => {
       expect(error).to.be.an.instanceOf(Error)
     })
 
+    it('sets and gets `price` correctly', () => {
+      expect(product.dataValues.price).to.equal(12500)
+      expect(product.price).to.equal(125)
+    })
+
     it('can handle long `description`', async () => {
       let productContent =
         'Get into the pilot seat, learn the basics of aviation and take the controls of a single engine light aircraft during this half hour Introductory Flying Lesson. The adventure begins when you meet your Certified Flight Instructor at the Cross Keys Airport in Williamstown, New Jersey. Upon arrival, you’ll head out onto the tarmac where the Pilot will take you through the entire envelope of the aircraft during a fifteen minute ground briefing. Next, you will climb aboard the aircraft get strapped in and then sit back as the Pilot taxis the plane down the runway. Once in the air, you will take ahold of the controls and actually fly the plane! Picturesque views of the South Jersey skyline make this an unforgettable airborne adventure. At the end of the flight, you will receive a flight log book to keep. So whether you are looking to begin a new hobby or have simply always wondered what it was like to pilot a plane, this five-star rated Philadelphia Flight Lesson is the ticket - an unforgettable gift that you will continue to share and relish for years and years!'
