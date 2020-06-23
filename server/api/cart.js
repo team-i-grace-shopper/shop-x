@@ -6,20 +6,21 @@ module.exports = router
 router.post('/', async (req, res, next) => {
   try {
     console.log('I GOT TO API ROUTE', req.body)
+    console.log('Checking for session', req.session)
+    const order = await Order.create({userId: req.session.passport.user})
+    req.body.products.forEach(async product => {
+      //   const expItem = await Product.findOne({
+      //     where: {
+      //       id: product.id
+      //     }
+      // })
 
-    const order = await Order.create()
-
-    const product = await Product.findOne({
-      where: {
-        id: 2
-      }
-    })
-
-    await OrderDetail.create({
-      orderId: order.id,
-      productId: product.id,
-      productQty: req.body.products[0].quantity,
-      price: req.body.products[0].product.price
+      await OrderDetail.create({
+        orderId: order.id,
+        productId: product.id,
+        productQty: product.quantity,
+        price: product.price
+      })
     })
 
     // await order.addProduct(product, {through: OrderDetail})

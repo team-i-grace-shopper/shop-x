@@ -25,7 +25,7 @@ const CheckoutConfirmation = props => {
         </div>
       </ul>
       {props.getItemsFromCart()}
-      <button onClick={props.handleConfirm} type="button">
+      <button onClick={props.postOrder} type="button">
         Confirm
       </button>
     </div>

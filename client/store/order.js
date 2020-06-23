@@ -49,8 +49,8 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case POST_ORDER:
       return action.products
-    case GET_ORDER:
-      return action.order
+    // case GET_ORDER:
+    //   return action.order
     default:
       return state
   }
