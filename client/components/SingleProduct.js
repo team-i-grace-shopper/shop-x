@@ -36,7 +36,11 @@ class SingleProduct extends React.Component {
     } else {
       const newCart = JSON.parse(localStorage.getItem('cart'))
       const product = newCart.find(item => item.id === Number(this.props.id))
-      product.quantity = Number(product.quantity) + Number(this.state.quantity)
+      if (product) {
+        product.quantity = Number(product.quantity) + Number(this.state.qty)
+      } else {
+        newCart.push(productToAdd)
+      }
       localStorage.setItem('cart', JSON.stringify(newCart))
     }
     this.setState({
