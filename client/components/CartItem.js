@@ -37,7 +37,9 @@ class CartItem extends React.Component {
               min="0"
               onChange={this.handleChange}
             />
-            <button type="button">remove</button>
+            <button type="button" onClick={this.props.remove}>
+              remove
+            </button>
           </div>
         </div>
       </div>

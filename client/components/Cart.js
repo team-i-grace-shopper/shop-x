@@ -11,6 +11,11 @@ let totalItems, totalDue
 class Cart extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {
+      items
+    }
+
+    this.remove = this.remove.bind(this)
   }
 
   // componentDidMount() {
@@ -19,25 +24,42 @@ class Cart extends React.Component {
   //   }, 0)
   // }
 
+  remove(id) {
+    const cart = JSON.parse(localStorage.getItem('cart'))
+    const newCart = cart.filter(product => product.id !== id)
+    localStorage.setItem('cart', JSON.stringify(newCart))
+    if (!newCart.length) {
+      this.setState({items: null})
+    } else {
+      this.setState({items: newCart})
+    }
+  }
+
   render() {
-    // console.log(items)
-    if (!items) {
+    console.log('ITEMS IN RENDER', this.state.items)
+    if (!this.state.items) {
       return <h1>There are no items in the cart</h1>
     }
 
-    totalItems = items.reduce(function(accum, currV) {
+    totalItems = this.state.items.reduce(function(accum, currV) {
       return accum + currV.quantity
     }, 0)
 
-    totalDue = items.reduce(function(accum, currV) {
+    totalDue = this.state.items.reduce(function(accum, currV) {
       return accum + currV.price * currV.quantity
     }, 0)
 
     return (
       <div className="cart">
         <div className="cartAll">
-          {items.map((item, index) => {
-            return <CartItem item={item} key={index} />
+          {this.state.items.map((item, index) => {
+            return (
+              <CartItem
+                item={item}
+                key={index}
+                remove={() => this.remove(item.id)}
+              />
+            )
           })}
         </div>
         <div>
