@@ -67,11 +67,11 @@ router.put('/:id', async (req, res, next) => {
       {
         orderTotal: null,
         complete: true,
-        user: req.body.userId || null
+        userId: req.body.userId
       },
       {
         where: {
-          id: req.body.id
+          id: Order.userId
         }
       }
     )
@@ -87,4 +87,14 @@ router.put('/:id', async (req, res, next) => {
     message: 'update successful',
     project: updatedOrder
   })
+})
+
+router.get('/:id', async (req, res, next) => {
+  try {
+    let order = await Order.findByPk(req.params.id)
+    console.log('order', order)
+    res.json(order)
+  } catch (error) {
+    next(error)
+  }
 })

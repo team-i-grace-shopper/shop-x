@@ -2,11 +2,17 @@ import axios from 'axios'
 
 //action types
 const POST_ORDER = 'POST_ORDER'
+const GET_ORDER = 'GET_ORDER'
 
 //action creators
 export const postSingleOrder = products => ({
   type: POST_ORDER,
   products
+})
+
+export const getOrder = order => ({
+  type: GET_ORDER,
+  order
 })
 
 //state
@@ -26,11 +32,25 @@ export function postSingleOrderThunk() {
   }
 }
 
+export function fetchOrderThunk(id) {
+  return async dispatch => {
+    try {
+      const {data} = await axios.get(`/api/cart/${id}`)
+      console.log('data', data)
+      dispatch(getOrder(data))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
 //reducer
 export default (state = initialState, action) => {
   switch (action.type) {
     case POST_ORDER:
       return action.products
+    case GET_ORDER:
+      return action.order
     default:
       return state
   }

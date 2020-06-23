@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import CheckoutConfirmation from './checkout_confirmation'
 import {me} from '../store/user'
+import {fetchOrderThunk, postSingleOrderThunk} from '../store/order'
 import {Link} from 'react-router-dom'
 import history from '../history'
 import axios from 'axios'
@@ -92,6 +93,7 @@ class CheckoutForm extends React.Component {
   componentDidMount() {
     this.props.getUser().then(this.setUser())
     this.getItemsFromCart()
+    this.props.getOrder(this.props.id)
   }
 
   getItemsFromCart() {
@@ -129,21 +131,23 @@ class CheckoutForm extends React.Component {
     this.setState({
       step: 3
     })
-    axios.put('/api/cart/1', {
+    let id = this.props.id
+    axios.put(`/api/cart/${id}`, {
       orderTotal: null,
       complete: true,
-      userId: null
+      userId: this.props.id || null
     })
+    window.localStorage.clear()
   }
 
   async setUser() {
     await this.setState({
-      email: this.props.email,
-      updated: true
+      email: this.props.email
     })
   }
 
   render() {
+    console.log('props', this.props)
     if (this.state.step === 1) {
       return (
         <div className="checkout-ctn">
@@ -266,6 +270,7 @@ class CheckoutForm extends React.Component {
           handleConfirm={this.handleConfirm}
           getItemsFromCart={this.getItemsFromCart}
           email={this.props.email}
+          postOrder={this.props.postOrder}
         />
       )
     } else if (this.state.step === 3) {
@@ -290,13 +295,16 @@ class CheckoutForm extends React.Component {
 
 const mapState = state => {
   return {
+    id: state.user.id,
     email: state.user.email
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    getUser: () => dispatch(me())
+    getUser: () => dispatch(me()),
+    getOrder: id => dispatch(fetchOrderThunk(id)),
+    postOrder: () => dispatch(postSingleOrderThunk())
   }
 }
 
