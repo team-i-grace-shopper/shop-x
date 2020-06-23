@@ -50,11 +50,11 @@ export class CartItem extends Component {
         </div>
 
         <div className="quantity">
-          <button className="minus-btn" type="button" name="button">
+          <button className="minus-btn" type="button">
             -
           </button>
           <input type="text" value="1" />
-          <button className="plus-btn" type="button" name="button">
+          <button className="plus-btn" type="button">
             +
           </button>
         </div>
