@@ -40,7 +40,8 @@ export const auth = (email, password, method) => async dispatch => {
 
   try {
     dispatch(getUser(res.data))
-    history.push('/home')
+    if (res.data.accountType === 'admin') history.push('/allUsers')
+    else history.push('/products')
   } catch (dispatchOrHistoryErr) {
     console.error(dispatchOrHistoryErr)
   }
