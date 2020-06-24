@@ -14,17 +14,6 @@ const updateOrder = order => ({
 const initialState = {}
 
 //thunk
-
-// export const completeOrder = (projectId) => {
-//     return async (dispatch) => {
-//       try {
-//         const { data } = await axios.put(`/api/projects/${projectId}`)
-//       } catch (error) {
-//         console.log(error)
-//       }
-//     }
-//   }
-
 export const completeOrder = event => {
   return async dispatch => {
     try {
