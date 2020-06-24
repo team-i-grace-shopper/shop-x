@@ -15,12 +15,13 @@ class AllUsers extends React.Component {
   render() {
     return (
       <div className="allUsers">
+        <h1>All Users</h1>
         {!this.props.allUsers.length
           ? null
           : this.props.allUsers.map(user => {
               return (
                 <div key={user.id}>
-                  <h2>Email: {user.email}</h2>
+                  <h3>Email: {user.email}</h3>
                   <h4>User Id: {user.id}</h4>
                 </div>
               )
