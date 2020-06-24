@@ -1,6 +1,7 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import {connect} from 'react-redux'
 import {fetchSingleProductThunk} from '../store/singleProduct'
+import {postSingleOrderThunk} from '../store/order'
 
 class SingleProduct extends React.Component {
   constructor(props) {
@@ -28,7 +29,9 @@ class SingleProduct extends React.Component {
       name: this.props.singleProduct.name,
       price: this.props.singleProduct.price,
       imageUrl: this.props.singleProduct.imageUrl,
-      quantity: this.state.quantity
+      quantity: this.state.quantity,
+//       product: this.props.singleProduct,
+//       quantity: this.state.quantity
     }
 
     if (!localStorage.getItem('cart')) {
@@ -44,7 +47,7 @@ class SingleProduct extends React.Component {
       localStorage.setItem('cart', JSON.stringify(newCart))
     }
     this.setState({
-      qty: 1
+      quantity: 1
     })
   }
 
@@ -88,6 +91,14 @@ class SingleProduct extends React.Component {
           >
             ADD TO CART
           </button>
+          <button
+            type="button"
+            onClick={() => {
+              this.props.postOrder()
+            }}
+          >
+            COMPLETE ORDER
+          </button>
         </div>
       </div>
     )
@@ -99,8 +110,10 @@ const mapState = (state, props) => ({
   id: props.match.params.productId
 })
 
-const mapDispatchToProps = dispatch => ({
-  fetchSingleProducts: id => dispatch(fetchSingleProductThunk(id))
-})
+const mapDispatchToProps = dispatch =>
+  console.log('I was in mapDispatchToProps') || {
+    fetchSingleProducts: id => dispatch(fetchSingleProductThunk(id)),
+    postOrder: () => dispatch(postSingleOrderThunk())
+  }
 
 export default connect(mapState, mapDispatchToProps)(SingleProduct)

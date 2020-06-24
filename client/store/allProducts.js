@@ -25,7 +25,6 @@ export const fetchProducts = () => {
     try {
       const {data} = await axios.get(`/api/products`)
       dispatch(getProducts(data || initialState))
-      // history.push('/shop')
     } catch (error) {
       console.log(error)
     }
