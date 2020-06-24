@@ -5,8 +5,6 @@ module.exports = router
 
 router.post('/', async (req, res, next) => {
   try {
-    console.log('I GOT TO API ROUTE', req.body)
-
     const userId = req.session.passport
       ? Number(req.session.passport.user)
       : null
@@ -21,8 +19,6 @@ router.post('/', async (req, res, next) => {
         price: Number(product.price)
       })
     })
-
-    console.log('product added')
 
     res.status(200).send('You order has been created')
   } catch (error) {
@@ -61,7 +57,6 @@ router.put('/:id', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
   try {
     let order = await Order.findByPk(req.params.id)
-    console.log('order', order)
     res.json(order)
   } catch (error) {
     next(error)
