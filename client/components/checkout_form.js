@@ -93,7 +93,7 @@ class CheckoutForm extends React.Component {
   componentDidMount() {
     this.props.getUser().then(this.setUser())
     this.getItemsFromCart()
-    this.props.getOrder(this.props.id)
+    // this.props.getOrder(this.props.id)
   }
 
   getItemsFromCart() {
@@ -298,7 +298,7 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     getUser: () => dispatch(me()),
-    getOrder: id => dispatch(fetchOrderThunk(id)),
+    // getOrder: id => dispatch(fetchOrderThunk(id)),
     postOrder: () => dispatch(postSingleOrderThunk())
   }
 }

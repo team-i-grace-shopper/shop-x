@@ -7,7 +7,13 @@ router.post('/', async (req, res, next) => {
   try {
     console.log('I GOT TO API ROUTE', req.body)
     console.log('Checking for session', req.session)
-    const order = await Order.create({userId: req.session.passport.user})
+    console.log('check if exists:', req.session.passport)
+    const userId = req.session.passport
+      ? Number(req.session.passport.user)
+      : null
+    console.log('user: ', userId)
+    const order = await Order.create({userId})
+
     req.body.products.forEach(async product => {
       //   const expItem = await Product.findOne({
       //     where: {
@@ -16,10 +22,10 @@ router.post('/', async (req, res, next) => {
       // })
 
       await OrderDetail.create({
-        orderId: order.id,
-        productId: product.id,
-        productQty: product.quantity,
-        price: product.price
+        orderId: Number(order.id),
+        productId: Number(product.id),
+        productQty: Number(product.quantity),
+        price: Number(product.price)
       })
     })
 
@@ -86,7 +92,7 @@ router.put('/:id', async (req, res, next) => {
   })
   res.json({
     message: 'update successful',
-    project: updatedOrder
+    product: updatedOrder
   })
 })
 
