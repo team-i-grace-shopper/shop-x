@@ -246,7 +246,6 @@ class CheckoutForm extends React.Component {
               </button>
               {!this.state.firstName ||
               !this.state.lastName ||
-              !this.state.email ||
               !this.state.address ||
               !this.state.state ||
               (!this.state.zipCode && this.state.step === 1) ? (
