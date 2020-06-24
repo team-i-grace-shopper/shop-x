@@ -23,7 +23,6 @@ export function postSingleOrderThunk() {
   return async dispatch => {
     try {
       const arrayOfProducts = JSON.parse(localStorage.getItem('cart'))
-      console.log('ARRAY OF PRODUCTS IN THUNK', arrayOfProducts)
       const {data} = await axios.post(`/api/cart`, {products: arrayOfProducts})
       dispatch(postSingleOrder(data))
     } catch (error) {
@@ -36,7 +35,6 @@ export function fetchOrderThunk(id) {
   return async dispatch => {
     try {
       const {data} = await axios.get(`/api/cart/${id}`)
-      console.log('data', data)
       dispatch(getOrder(data))
     } catch (error) {
       console.log(error)
