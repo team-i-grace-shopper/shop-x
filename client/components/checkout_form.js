@@ -141,7 +141,6 @@ class CheckoutForm extends React.Component {
   }
 
   render() {
-    console.log('props', this.props)
     if (this.state.step === 1) {
       return (
         <div className="checkout-ctn">
@@ -268,7 +267,6 @@ class CheckoutForm extends React.Component {
         />
       )
     } else if (this.state.step === 3) {
-      console.log('we are on this step: ', this.state.step)
       return (
         <div>
           <h1>Thank you! Your order is complete</h1>
