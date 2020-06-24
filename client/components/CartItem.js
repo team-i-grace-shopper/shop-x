@@ -29,7 +29,7 @@ export class CartItem extends Component {
           </div>
           <div>
             <h2>Price:{this.props.product.price}</h2>
-            <h2>Qunatity:</h2>
+            <h2>Quantity:</h2>
             <input
               type="number"
               defaultValue={this.props.product.quantity}
