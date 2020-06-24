@@ -41,7 +41,7 @@ div .cartImage img {
   height: 30vh;
 }
 
-.cartDeatils {
+.cartDetails {
   display: flex;
   flex-direction: column;
   justify-content: left;
@@ -51,4 +51,14 @@ div .cartImage img {
   font-size: 12px;
   flex-direction: column;
   justify-content: left;
+}
+
+.allProducts {
+  display: flex;
+  /* flex-direction: column; */
+  /* flex-wrap: wrap; */
+}
+
+.list-ctn {
+  /* display: flex; */
 }
