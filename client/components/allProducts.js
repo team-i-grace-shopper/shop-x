@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchProducts, deleteProduct} from '../store/allProducts'
+import {postSingleOrderThunk} from '../store/order'
 import ProductList from './productList'
 import {Link} from 'react-router-dom'
 
@@ -32,7 +33,6 @@ class AllProducts extends React.Component {
     } else {
       const newCart = JSON.parse(localStorage.getItem('cart'))
       const product = newCart.find(item => item.id === Number(event.target.id))
-      console.log({newCart, product, targetId: event.target.id})
       if (product) {
         product.quantity = Number(product.quantity) + Number(this.state.qty)
       } else {
