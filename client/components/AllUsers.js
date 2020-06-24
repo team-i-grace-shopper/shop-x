@@ -15,7 +15,7 @@ class AllUsers extends React.Component {
   render() {
     return (
       <div className="allUsers">
-        <h1>All Users</h1>
+        <h1>Users</h1>
         {!this.props.allUsers.length
           ? null
           : this.props.allUsers.map(user => {
