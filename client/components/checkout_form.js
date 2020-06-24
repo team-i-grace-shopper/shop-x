@@ -140,6 +140,7 @@ class CheckoutForm extends React.Component {
     })
   }
 
+  // eslint-disable-next-line complexity
   render() {
     if (this.state.step === 1) {
       return (
@@ -243,9 +244,20 @@ class CheckoutForm extends React.Component {
               >
                 Back To Cart
               </button>
-              <a href="#" onClick={this.handlePreview} type="button">
-                Preview Order Details
-              </a>
+              {!this.state.firstName ||
+              !this.state.lastName ||
+              !this.state.email ||
+              !this.state.address ||
+              !this.state.state ||
+              (!this.state.zipCode && this.state.step === 1) ? (
+                <button type="button" disabled>
+                  Preview Order Details
+                </button>
+              ) : (
+                <button href="#" onClick={this.handlePreview} type="button">
+                  Preview Order Details
+                </button>
+              )}
             </form>
           </div>
         </div>
